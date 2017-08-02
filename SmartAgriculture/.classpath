@@ -27,6 +27,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="C:/Users/MW/Downloads/owm-japis-2.5.0.3.jar"/>
 	<classpathentry kind="lib" path="C:/Users/MW/Downloads/json-simple-1.1.1.jar"/>
 	<classpathentry excluding="**" kind="src" output="target/test-classes" path="src/test/resources">
@@ -34,5 +35,7 @@
 			<attribute name="maven.pomderived" value="true"/>
 		</attributes>
 	</classpathentry>
+=======
+>>>>>>> 032646520d1cd767914b3605c5f10304c0082680
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
