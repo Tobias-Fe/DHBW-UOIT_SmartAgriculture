@@ -29,10 +29,13 @@ public class App {
 			//return wetterInfoForGridID.minTemp;
 			//Martin an browser ein json zurück geben
 
+			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
 			
 			return "";
+			//Martin an browser ein json zurück geben
 		});
 		
 		//post("/")
 	}
 }
+
