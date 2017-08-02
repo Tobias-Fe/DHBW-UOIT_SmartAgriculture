@@ -94,7 +94,8 @@ public class Main {
 			//		System.out.println(tuple._1 + ": " + tuple._2 + " / ");
 			//		System.out.println(tuple._2.split(",")[3]); Um eine Stelle aus dem Array zu bekommen
 					double[] grid = {Integer.parseInt(tuple._2.split(",")[0]),Double.parseDouble(tuple._2.split(",")[2]),Double.parseDouble(tuple._2.split(",")[3]) };
-					System.out.println("ID: " + grid[0]+" lat: "+ grid[1]+" lon: "+grid[2]);
+					//System.out.println("ID: " + grid[0]+" lat: "+ grid[1]+" lon: "+grid[2]);
+					System.out.println(grid[0]);
 					//some
 				});
 		// ausgabeReduced.foreach(tuple -> System.out.println(tuple._1 + ": " +
