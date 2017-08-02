@@ -11,7 +11,7 @@ import org.json.JSONException;
 import net.aksingh.owmjapis.DailyForecast;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
-public class WeatherTest {
+public class getWeatherData {
 	public static final void main(String[] args) throws IOException, JSONException {
 		
 		FileWriter fw = new FileWriter("generated.csv", true);
