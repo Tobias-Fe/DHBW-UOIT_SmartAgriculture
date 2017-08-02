@@ -11,7 +11,6 @@ public class App {
 
 	public static void main(String[] args) {
 		
-		
 		staticFiles.externalLocation("src/main/resources/public");
 
 		post("/centerpol", (req, res) -> {
