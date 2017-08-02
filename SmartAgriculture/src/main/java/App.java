@@ -17,12 +17,13 @@ public class App {
 			double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);			
 			double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
 			
-			//Martin an browser ein json zurück geben
+			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
 			
 			return "";
+			//Martin an browser ein json zurück geben
 		});
 		
 		//post("/")
 	}
-
 }
+
