@@ -28,11 +28,11 @@ public class App {
 			
 			//return wetterInfoForGridID.minTemp;
 			//Martin an browser ein json zurück geben
+
 			
 			return "";
 		});
 		
 		//post("/")
 	}
-
 }
