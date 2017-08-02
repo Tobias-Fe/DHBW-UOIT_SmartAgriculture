@@ -21,15 +21,16 @@ public class App {
 			double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);			
 			double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
 			
-			int gridId = 1;
-			wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridId);
-			
 //			System.out.println(wetterInfoForGridID.minTemp);
 			
-			//return wetterInfoForGridID.minTemp;
+
 			//Martin an browser ein json zurück geben
 
 			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
+			
+			wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridID);
+			System.out.println(wetterInfoForGridID.maxTemp);
+			//return wetterInfoForGridID.minTemp;
 			
 			return "";
 			//Martin an browser ein json zurück geben
