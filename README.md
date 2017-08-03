@@ -1,5 +1,5 @@
 # DHBW-UOIT_SmartAgriculture
-This project aims to solve the agricultural problems of irrigation of crops and providing a sustainable antifreeze solution for those crops in an IoT context. A strawberry crop for example needs 0.5 litres of water a day in its 2-year growing period. If there isn't substantial rainfall in that timeframe the crops need to be watered to keep growing and bear fruit. Therefore a irrigation system fed with real-time data is needed to ensure the optimal growth of the plants by watering them according to the regional weather forecast. It also provides an antifreeze technology by using local temperature data to protect the crops by freezing them gently with water from the irrigation system.
+This project aims to solve the agricultural problems of irrigation of crops and providing a sustainable antifreeze solution for those crops in an IoT context. A strawberry crop for example needs 0.5 litres of water a day in its 2-year growing period. If there isn't substantial rainfall in that timeframe the crops need to be watered to keep growing and bear fruit. Therefore a irrigation system fed with real-time data is needed to ensure the optimal growth of the plants by watering them according to the regional weather forecast. The solution also provides an antifreeze technology by using local temperature data to protect the crops by freezing them gently with water from the irrigation system.
 
 See also our video [here](https://www.youtube.com/watch?v=h5qz5C1ngkg) for an overview.
 
@@ -15,7 +15,7 @@ Requirements:
  
 Install it by importing this project into your development platform. From there you can simply run the application.
 
-To reproduce the steps taken in our video navigate with your browser to either the localhost or an locall IP used by your virtual server. There choose the four corner coordinates of your filed by simply left-clicking on the map. The center point of your field will be displayed together with a weather icon resembling the current weather conditions on the field. A left-click on the icon provides you with a detailed report on the weather condition and with advice if irrigation should be started on basis of forecastet weather data.
+To reproduce the steps taken in our video navigate with your browser to either the localhost or an local IP used by your virtual server. There choose the four corner coordinates of your filed by simply left-clicking on the map. The center point of your field will be displayed together with a weather icon resembling the current weather conditions on the field. A left-click on the icon provides you with a detailed report on the weather condition and with advice if irrigation should be started on basis of forecastet weather data.
 
 Contribute
 =================
