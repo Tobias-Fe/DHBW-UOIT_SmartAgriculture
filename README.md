@@ -26,13 +26,12 @@ Support
 =================
 
 If you are having issues, please let us know.
-We are available at: 
 
 License
 ================
 
-The source code of the project is licensed under the Apache License 2.0. For more Information see LICENSE.md.
-The video is licensed under the CC 4.0 License. For more Information see the LICENSE.md file in the Video folder.
+The source code of the project is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). For more Information see LICENSE.md.
+The video is licensed under the [CC 4.0 License](https://creativecommons.org/licenses/by/4.0/). For more Information see the LICENSE.md file in the Video folder.
 
 
 
