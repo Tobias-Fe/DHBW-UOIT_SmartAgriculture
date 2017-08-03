@@ -15,7 +15,6 @@ import scala.Tuple2;
 public class GetWeatherRows {
 	private static JavaPairRDD<String, WetterInfo> wetterInfoMitEinemWetterProGrid = null;
 	
-
 	private static JavaPairRDD<String, WetterInfo> gebeWetterInfos() {
 		Logging.setLoggingDefaults();
 
