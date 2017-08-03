@@ -18,6 +18,7 @@ public class App {
 			String json = req.body();
 			System.out.println(json);
 			DocumentContext parsed = JsonPath.parse(json);
+
 			System.out.println(parsed);
 			//double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);
 			//double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
@@ -44,6 +45,23 @@ public class App {
 
 			return antwort;
 			// Martin an browser ein json zurück geben
+//			double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);			
+//			double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
+			
+//			System.out.println(wetterInfoForGridID.minTemp);
+			
+
+			//Martin an browser ein json zurück geben
+
+//			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
+			
+//			wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridID);
+//			System.out.println(wetterInfoForGridID.maxTemp);
+			//return wetterInfoForGridID.minTemp;
+			
+	
+			//Martin an browser ein json zurück geben
+
 		});
 
 //		staticFiles.externalLocation("src/main/resources/public");
