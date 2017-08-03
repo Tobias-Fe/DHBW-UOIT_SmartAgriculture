@@ -15,6 +15,8 @@ Requirements:
  
 Install it by importing this project into your development platform. From there you can simply run the application.
 
+To reproduce the steps taken in our video navigate with your browser to either the localhost or an locall IP used by your virtual server. There choose the four corner coordinates of your filed by simply left-clicking on the map. The center point of your field will be displayed together with a weather icon resembling the current weather conditions on the field. A left-click on the icon provides you with a detailed report on the weather condition and with advice if irrigation should be started on basis of forecastet weather data.
+
 Contribute
 =================
 
@@ -31,7 +33,7 @@ License
 ================
 
 The source code of the project is licensed under the [Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0). For more Information see LICENSE.md.
-The video is licensed under the [CC 4.0 License](https://creativecommons.org/licenses/by/4.0/). For more Information see the LICENSE.md file in the Video folder.
+The video and this documentation is licensed under the [CC 4.0 License](https://creativecommons.org/licenses/by/4.0/). For more Information see the LICENSE.md file in the Video folder.
 
 
 
