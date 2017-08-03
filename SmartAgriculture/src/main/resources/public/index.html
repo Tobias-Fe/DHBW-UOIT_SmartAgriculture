@@ -27,6 +27,7 @@
             id: 'mapbox.streets'
         }).addTo(mymap);
 
+		//Definieren der Icons
         var weatherIcon = L.Icon.extend({
             options: {
                 iconSize: [38, 38],
@@ -52,18 +53,21 @@
         var LatLngs = new Array();
         var coords = new Array();
 
-
+		//Funktion die Aufgerufen wird bei Klick auf Karte
         function onMapClick(e) {
             
-            //Counter Clockwise Points
             counter++;
+            //Bekomme lat vom geklickten Punkt
             var lat = e.latlng["lat"];
+            //Bekomme lat vom geklickten Punkt
             var lng = e.latlng["lng"];
+            //Schreiben in coords Array
             coords.push(lat);
             coords.push(lng);
 
             console.log(lat);
 
+			//Schreiben von coords in LatLngs Array
             LatLngs.push(coords);
             coords = new Array();
 
@@ -88,15 +92,12 @@
                 counter = 0;
                 console.log(Polygons);
                 drawPolygon(e);
-
-                /*$.post("/centerpol", JSON.stringify({
-                        centerPolResult: centerPol
-                    }))
-                    .done(function(data) {
-                    console.log(data);
-                    });*/
-                    
-                    
+    
+               var maxTemp;
+               var minTemp;
+               var rain;
+                  
+               //Post-Request-Response
                $.ajax({
 					type : "POST",
 					url : "http://localhost:4567/centerpol",
@@ -104,42 +105,41 @@
 					contentType : "application/json; charset=utf-8",
 					dataType : "json",
 					success : function(data) {
-						//addFireMarker(data);
 						console.log(data);
+						maxTemp= data.maxtemp;
+						minTemp = data.mintemp;
+						rain = data.rain;
+						
+						// Hinzufügen der Icons in Abhängigkeit der Wetterdaten
+						if (minTemp <= 0){
+                L.marker(centerPol, {
+                        icon: iceIcon
+                    }).bindPopup("It will be cold! <br/> Max. Temperature: " + maxTemp + "°C<br/> Min. Temperature: " + minTemp + "°C<br/> Rain probability: " + rain + "%<br/> -> Start Irrigation to protect your Field!").addTo(mymap);
+               }
+                
+               else if (rain >= 10) {
+               
+                    L.marker(centerPol, {
+                        icon: rainIcon
+                    }).bindPopup("It will rain!<br/> Max. Temperature: " + maxTemp + "°C<br/> Min. Temperature: " + minTemp + "°C<br/> Rain probability: " + rain + "%<br/> -> No Irrigation required").addTo(mymap);
+               }
+               else {
+               L.marker(centerPol, {
+                        icon: sunnyIcon
+                    }).bindPopup("It will be dry!<br/> Max. Temperature: " + maxTemp + "°C<br/> Min. Temperature: " + minTemp + "°C<br/> Rain probability: " + rain + "%<br/> -> Start Irrigation to water your Field!").addTo(mymap);
+               }
+						
 					},
 					error : function(errMsg) {
 						console.log(errMsg);
 					}
 				});
 
-               // Hinzufügen der Icons in Abhängigkeit der Wetterdaten
-               var maxTemp;
-               var minTemp;
-               var rain;
-               var temp = 1;
-               if (temp <= 0){
-                L.marker(centerPol, {
-                        icon: iceIcon
-                    }).bindPopup("It will be cold, so your field could be frozen").addTo(mymap);
-               }
-                
-               else if (rain >= 10) {
-                    L.marker(centerPol, {
-                        icon: rainIcon
-                    }).bindPopup("It will rain at your field this day.").addTo(mymap);
-               }
-               else {
-               L.marker(centerPol, {
-                        icon: sunnyIcon
-                    }).bindPopup("It will be sunny at your field this day.").addTo(mymap);
-               }
-
-
             }
-
 
         }
 
+		//Gebe Mittelpunkt der Fläsche aus
         function getCentroid(coord) {
             var center = coord.reduce(function(x, y) {
                 return [x[0] + y[0] / coord.length, x[1] + y[1] / coord.length]

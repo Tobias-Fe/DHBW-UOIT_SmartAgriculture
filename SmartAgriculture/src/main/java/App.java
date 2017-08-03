@@ -12,71 +12,46 @@ public class App {
 
 	public static void main(String[] args) {
 
+		//Pfad zu externen Ressourcen
 		staticFiles.externalLocation("src/main/resources/public");
 
+		//Post-Request-Response
 		post("/centerpol", (req, res) -> {
+			//Bekomme JSON
 			String json = req.body();
 			System.out.println(json);
+			//Parse JSON
 			DocumentContext parsed = JsonPath.parse(json);
 
 			System.out.println(parsed);
-			//double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);
-			//double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
+			//Lat vom Mittelpunkt des Grids
+			double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);
+			//Lng vom Mittelpunkt des Grids
+			double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
 
-			int gridId = 1;
-			// wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridId);
-			 double maxTemp = /*wetterInfoForGridID.maxTemp*/ 20.0;
-			 System.out.println(maxTemp);
-			 double minTemp = /*wetterInfoForGridID.minTemp*/ 10.0;
-			System.out.println(minTemp);
-			 double regenwahrscheinlichkeit = /*wetterInfoForGridID.regenWahrscheinlichkeit*/ 5.0;
-
-			 JSONObject antwort = new JSONObject();
-			 antwort.put("maxtemp", maxTemp);
-			 antwort.put("mintemp", minTemp);
-			 antwort.put("rain", regenwahrscheinlichkeit);
-
-			// System.out.println(wetterInfoForGridID.minTemp);
-
-			// return wetterInfoForGridID.minTemp;
-			// Martin an browser ein json zurück geben
-
-			// int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
+			//Berechnung der GridID
+			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
+			//Bekomme WetterInfos zu GridID
+			wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridID);
+			System.out.println("GridKey: " + wetterInfoForGridID.gridKey);
+			double maxTemp = wetterInfoForGridID.maxTemp;
+			System.out.println("MaxTemp: " + maxTemp);
+			double minTemp = wetterInfoForGridID.minTemp;
+			System.out.println("MinTemp: " + minTemp);
+			double regenwahrscheinlichkeit = wetterInfoForGridID.regenWahrscheinlichkeit;
+			if(Double.isNaN(regenwahrscheinlichkeit)){
+				regenwahrscheinlichkeit = 0.0;
+			}
+			System.out.println("Regenwahrscheinlichkeit: " + regenwahrscheinlichkeit);
+			//Erstellung des JSON-Result
+			JSONObject antwort = new JSONObject();
+			antwort.put("maxtemp", maxTemp);
+			antwort.put("mintemp", minTemp);
+			antwort.put("rain", regenwahrscheinlichkeit);
 
 			return antwort;
-			// Martin an browser ein json zurück geben
-//			double centerPointLat = parsed.read("$.centerPolResult[0]", Double.class);			
-//			double centerPointLng = parsed.read("$.centerPolResult[1]", Double.class);
-			
-//			System.out.println(wetterInfoForGridID.minTemp);
-			
-
-			//Martin an browser ein json zurück geben
-
-//			int gridID = getGrid.findeGrid(centerPointLat, centerPointLng);
-			
-//			wetterInfoForGridID = GetWeatherRows.getWetterInfoForGridID(gridID);
-//			System.out.println(wetterInfoForGridID.maxTemp);
-			//return wetterInfoForGridID.minTemp;
-			
-	
-			//Martin an browser ein json zurück geben
 
 		});
 
-//		staticFiles.externalLocation("src/main/resources/public");
-//		Spark.post("/waypoints", (req, res) -> {
-//			System.out.println("Received Post Request...");
-//			Gson gson = new Gson();
-//
-//			FromWebbrowser fromWebbrowser = gson.fromJson(req.body(), FromWebbrowser.class);
-//
-//			ToWebbrowser toWebBrowser = new ToWebbrowser();
-//			toWebBrowser.waypoints = new LatLonDanger[tmp.size()];
-//
-//			return gson.toJson(routePointsToWeb);
-//		});
-
-		// post("/")
 	}
 }

@@ -21,7 +21,6 @@ public class getWeatherData {
 		    PrintWriter clear = new PrintWriter("generated.csv");
 		    clear.print("");
 		    clear.close();
-		    String a = br.readLine();
 		}
 		br.close();
 		
@@ -51,7 +50,6 @@ public class getWeatherData {
 					for (int i = 0; i < numForecasts; i++) {
 						DailyForecast.Forecast dayForecast = forecast2.getForecastInstance(i);
 				        DailyForecast.Forecast.Temperature temperature = dayForecast.getTemperatureInstance();
-				        // System.out.println(lat + " / " + lon);
 				        // append by ID
 				        sb.append(x);
 				        sb.append(',');

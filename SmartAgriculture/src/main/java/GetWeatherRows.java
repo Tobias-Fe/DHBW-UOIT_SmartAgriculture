@@ -14,9 +14,13 @@ import scala.Tuple2;
 
 public class GetWeatherRows {
 	private static JavaPairRDD<String, WetterInfo> wetterInfoMitEinemWetterProGrid = null;
-	
-	private static JavaPairRDD<String, WetterInfo> gebeWetterInfos() {
+	private static JavaPairRDD<String, WetterInfo> wetterInfoMitEinemWetterProGridResult = null;
+	public static volatile boolean running = true;
+
+	//Liefert alle WetterInfos aus CSV
+	private static JavaPairRDD<String, WetterInfo> gebeWetterInfos() throws InterruptedException {
 		Logging.setLoggingDefaults();
+		App.main(null);
 
 		String fileName = "src/main/resources/wetterdaten-neu.csv";
 
@@ -28,11 +32,11 @@ public class GetWeatherRows {
 		JavaRDD<Row> csvLines = sqlContext.read().format("com.databricks.spark.csv").option("inferSchema", "true")
 				.option("header", "false").load(fileName).javaRDD();
 
-		WetterInfo wetterInfo = new WetterInfo();
 		wetterInfoMitEinemWetterProGrid = csvLines.mapToPair(row -> {
+			WetterInfo wetterInfo = new WetterInfo();
 			wetterInfo.gridKey = "" + row.getInt(0);
 			wetterInfo.datum = row.getString(1);
-
+			//Formatierung des Datums
 			DateTimeFormatter pattern = DateTimeFormatter.ofPattern("E MMM dd HH:mm:ss z yyyy", Locale.US);
 			wetterInfo.resultDatum = LocalDate.parse(wetterInfo.datum, pattern);
 
@@ -47,39 +51,40 @@ public class GetWeatherRows {
 
 			return new Tuple2<String, WetterInfo>(wetterInfo.gridKey, wetterInfo);
 		});
-
-		wetterInfoMitEinemWetterProGrid.mapToPair(a -> new Tuple2<String, String>(a._1, a._2.toString()))
-				.reduceByKey((a, b) -> a).foreach(tuple -> {
-					// System.out.println(tuple._2.split(",")); //array in denen die einzelen
-					// Elemente drin sind
-					 System.out.println(tuple._1 + ": " + tuple._2 + " / ");
-					// System.out.println(tuple._2.split(",")[3]); Um eine Stelle aus dem Array zu
-					// bekommen
-//					double[] grid = { Integer.parseInt(tuple._2.split(",")[0]),
-//							Double.parseDouble(tuple._2.split(",")[2]), Double.parseDouble(tuple._2.split(",")[3]) };
-//					System.out.println("ID: " + grid[0] + " lat: " + grid[1] + " lon: " + grid[2]);
-					// some
+		
+		wetterInfoMitEinemWetterProGridResult = wetterInfoMitEinemWetterProGrid
+				.reduceByKey((a, b) -> a);
+		
+		wetterInfoMitEinemWetterProGridResult.foreach(tuple -> {
+					System.out.println(tuple._1 + ": " + tuple._2 + " / ");
 				});
 
 		System.out.println("Looking at " + csvLines.count() + " data lines");
+
+		//Benötigt, dass der SparkContext nicht beendet wird.
+		while (running)
+			Thread.sleep(1000);
+
 		sc.close();
-		return wetterInfoMitEinemWetterProGrid;
+		return wetterInfoMitEinemWetterProGridResult;
 	}
 
-	public static WetterInfo getWetterInfoForGridID(int gridId) {
-		JavaPairRDD<String, WetterInfo> filtered = wetterInfoMitEinemWetterProGrid
-				.filter(entry -> entry._1.equals("" + gridId));
-
-		if (filtered.count() == 1) 
-			return filtered.first()._2;
+	//Liefert die WetterInfo für das übergebene Grid.
+	public static WetterInfo getWetterInfoForGridID(int gridKey) {
+		wetterInfoMitEinemWetterProGridResult.filter(el -> el._1.equals("1")).foreach(el -> System.out.println(el._2));
 		
+		JavaPairRDD<String, WetterInfo> filtered = wetterInfoMitEinemWetterProGridResult
+				.filter(entry -> entry._1.equals("" + gridKey));
+		System.out.println("Filtered.count(): " + filtered.count());
+		if (filtered.count() == 1)
+			return filtered.first()._2;
+
 		return null;
+
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		gebeWetterInfos();
-		System.out.println(getWetterInfoForGridID(5));
-
 		
 	}
 }
