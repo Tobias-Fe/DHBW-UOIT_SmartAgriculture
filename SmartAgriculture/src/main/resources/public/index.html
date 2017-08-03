@@ -89,14 +89,34 @@
                 console.log(Polygons);
                 drawPolygon(e);
 
-                $.post("/centerpol", JSON.stringify({
+                /*$.post("/centerpol", JSON.stringify({
                         centerPolResult: centerPol
                     }))
-                    .done(function(data) {});
+                    .done(function(data) {
+                    console.log(data);
+                    });*/
+                    
+                    
+               $.ajax({
+					type : "POST",
+					url : "http://localhost:4567/centerpol",
+					data : JSON.stringify({centerPolResult: centerPol}),
+					contentType : "application/json; charset=utf-8",
+					dataType : "json",
+					success : function(data) {
+						//addFireMarker(data);
+						console.log(data);
+					},
+					error : function(errMsg) {
+						console.log(errMsg);
+					}
+				});
 
                // Hinzufügen der Icons in Abhängigkeit der Wetterdaten
-               var temp = -2;
-               var rain = 5;
+               var maxTemp;
+               var minTemp;
+               var rain;
+               var temp = 1;
                if (temp <= 0){
                 L.marker(centerPol, {
                         icon: iceIcon

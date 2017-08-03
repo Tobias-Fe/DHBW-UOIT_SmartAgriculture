@@ -53,17 +53,16 @@ public class GetWeatherRows {
 				.reduceByKey((a, b) -> a).foreach(tuple -> {
 					// System.out.println(tuple._2.split(",")); //array in denen die einzelen
 					// Elemente drin sind
-					// System.out.println(tuple._1 + ": " + tuple._2 + " / ");
+					 System.out.println(tuple._1 + ": " + tuple._2 + " / ");
 					// System.out.println(tuple._2.split(",")[3]); Um eine Stelle aus dem Array zu
 					// bekommen
-					double[] grid = { Integer.parseInt(tuple._2.split(",")[0]),
-							Double.parseDouble(tuple._2.split(",")[2]), Double.parseDouble(tuple._2.split(",")[3]) };
-					System.out.println("ID: " + grid[0] + " lat: " + grid[1] + " lon: " + grid[2]);
+//					double[] grid = { Integer.parseInt(tuple._2.split(",")[0]),
+//							Double.parseDouble(tuple._2.split(",")[2]), Double.parseDouble(tuple._2.split(",")[3]) };
+//					System.out.println("ID: " + grid[0] + " lat: " + grid[1] + " lon: " + grid[2]);
 					// some
 				});
 
 		System.out.println("Looking at " + csvLines.count() + " data lines");
-
 		sc.close();
 		return wetterInfoMitEinemWetterProGrid;
 	}
@@ -72,13 +71,16 @@ public class GetWeatherRows {
 		JavaPairRDD<String, WetterInfo> filtered = wetterInfoMitEinemWetterProGrid
 				.filter(entry -> entry._1.equals("" + gridId));
 
-		if (filtered.count() == 1)
+		if (filtered.count() == 1) 
 			return filtered.first()._2;
-
+		
 		return null;
 	}
 
 	public static void main(String[] args) {
 		gebeWetterInfos();
+		System.out.println(getWetterInfoForGridID(5));
+
+		
 	}
 }
