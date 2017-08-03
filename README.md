@@ -12,6 +12,8 @@ Requirements:
  - Java 8
  - JavaScript enabled
  - Webbrowser and internet access
+ 
+Install it by importing this project into your development platform. From there you can simply run the application.
 
 Contribute
 =================
